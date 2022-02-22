@@ -1,18 +1,18 @@
 #include<iostream>
 #include<vector>
-#include "DeepCpp.hpp"
+#include "LinearAlgebra.hpp"
 
-DeepCpp::Vector::Vector(){
+LinearAlgebra::Vector::Vector(){
     this->array.resize(0);
 }
 
-DeepCpp::Vector::Vector(std::vector<float> a){
+LinearAlgebra::Vector::Vector(std::vector<float> a){
     this->array = a;
     check_size();
 }
 
-DeepCpp::Vector DeepCpp::Vector::operator + (DeepCpp::Vector v){
-    DeepCpp::Vector c;
+LinearAlgebra::Vector LinearAlgebra::Vector::operator + (LinearAlgebra::Vector v){
+    LinearAlgebra::Vector c;
     for(int i = 0; i < v.size; i++){
         c.array.push_back(this->array[i] + v.array[i]);
     }
@@ -20,8 +20,8 @@ DeepCpp::Vector DeepCpp::Vector::operator + (DeepCpp::Vector v){
     return c;
 }
 
-DeepCpp::Vector DeepCpp::Vector::operator - (DeepCpp::Vector v){
-    DeepCpp::Vector c;
+LinearAlgebra::Vector LinearAlgebra::Vector::operator - (LinearAlgebra::Vector v){
+    LinearAlgebra::Vector c;
     for(int i = 0; i < v.size; i++){
         c.array.push_back(this->array[i] - v.array[i]);
     }
@@ -29,8 +29,8 @@ DeepCpp::Vector DeepCpp::Vector::operator - (DeepCpp::Vector v){
     return c;
 }
 
-DeepCpp::Vector DeepCpp::Vector::operator * (DeepCpp::Vector v){
-    DeepCpp::Vector c;
+LinearAlgebra::Vector LinearAlgebra::Vector::operator * (LinearAlgebra::Vector v){
+    LinearAlgebra::Vector c;
     for(int i = 0; i < v.size; i++){
         c.array.push_back(this->array[i] * v.array[i]);
     }
@@ -38,8 +38,8 @@ DeepCpp::Vector DeepCpp::Vector::operator * (DeepCpp::Vector v){
     return c;
 }
 
-DeepCpp::Vector DeepCpp::Vector::operator / (DeepCpp::Vector v){
-    DeepCpp::Vector c;
+LinearAlgebra::Vector LinearAlgebra::Vector::operator / (LinearAlgebra::Vector v){
+    LinearAlgebra::Vector c;
     for(int i = 0; i < v.size; i++){
         c.array.push_back(this->array[i] / v.array[i]);
     }
@@ -47,12 +47,21 @@ DeepCpp::Vector DeepCpp::Vector::operator / (DeepCpp::Vector v){
     return c;
 }
 
+float LinearAlgebra::Vector::dot(LinearAlgebra::Vector v){
+    float dot = 0;
+    for(int i = 0; i < v.size; i++){
+        //std::cout << dot << "\n";
+        dot += this->array[i] * v.array[i];
+    }
+    return dot;
+}
 
-void DeepCpp::Vector::check_size(){
+
+void LinearAlgebra::Vector::check_size(){
     this->size = this->array.size();
 }
 
-void DeepCpp::Vector::show(){
+void LinearAlgebra::Vector::show(){
     std::cout << "Vector{" << this->size << "}" << "\n" << "[ ";
     for(int i = 0; i < this->size; i++){
         std::cout << this->array[i] << " ";

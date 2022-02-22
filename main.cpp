@@ -1,23 +1,16 @@
 #include<iostream>
 #include<vector>
-#include "./library/DeepCpp.hpp"
+#include "./library/LinearAlgebra.hpp"
 
 int main(void){
-    DeepCpp::Vector a({1, 2, 3, 4, 5});
-    DeepCpp::Vector b({5, 9, 10, 15, 16});
-    DeepCpp::Vector c;
-    DeepCpp::Vector d;
-    DeepCpp::Vector e;
-    DeepCpp::Vector f;
-    a.show();
-    b.show();
-    c = a + b;
-    d = b - a;
-    e = a * b;
-    f = a / b;
-    c.show();
-    d.show();
-    e.show();
-    f.show();
+    LinearAlgebra::Vector a({1, 3, 5, 7, 9});
+    LinearAlgebra::Vector b({2, 4, 6, 8, 10});
+    LinearAlgebra::Vector add;
+    float c;
+    a.show(); b.show();
+    add = a + b;
+    c = a.dot(b);
+    add.show();
+    std::cout << c << "\n";
     return 0;
 }
