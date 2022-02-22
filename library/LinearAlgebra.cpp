@@ -29,6 +29,24 @@ DeepCpp::Vector DeepCpp::Vector::operator - (DeepCpp::Vector v){
     return c;
 }
 
+DeepCpp::Vector DeepCpp::Vector::operator * (DeepCpp::Vector v){
+    DeepCpp::Vector c;
+    for(int i = 0; i < v.size; i++){
+        c.array.push_back(this->array[i] * v.array[i]);
+    }
+    c.check_size();
+    return c;
+}
+
+DeepCpp::Vector DeepCpp::Vector::operator / (DeepCpp::Vector v){
+    DeepCpp::Vector c;
+    for(int i = 0; i < v.size; i++){
+        c.array.push_back(this->array[i] / v.array[i]);
+    }
+    c.check_size();
+    return c;
+}
+
 
 void DeepCpp::Vector::check_size(){
     this->size = this->array.size();

@@ -1,6 +1,7 @@
 #ifndef DeepCpp
 #include<iostream>
 #include<vector>
+#include<math.h>
 
 namespace DeepCpp{
     class Vector{
@@ -11,6 +12,8 @@ namespace DeepCpp{
         Vector(std::vector<float> a);
         Vector operator + (Vector v);
         Vector operator - (Vector v);
+        Vector operator * (Vector v);
+        Vector operator / (Vector v);
         void show();
     private:
         void check_size();
