@@ -4,6 +4,8 @@
 #include<math.h>
 
 namespace LinearAlgebra{
+    class Vector;
+    class Matrix;
     class Vector{
     public:
         std::vector<float> array;      // ベクトルの要素
@@ -16,15 +18,21 @@ namespace LinearAlgebra{
         Vector operator - (Vector v);
         Vector operator * (Vector v);
         Vector operator / (Vector v);
+        // スカラー演算
+        Vector operator * (float k);
+        friend Vector operator * (float k, Vector v);
+        Vector operator / (float k);
+        friend Vector operator / (float k, Vector v);
         // ベクトル積
         float dot(Vector v); // 内積
+        // ベクトルから行列へ変換
+        Matrix vec_to_matrix(int axis);
         // ベクトルのサイズ，要素表示
         void show();
     private:
         // ベクトルのサイズを求める
         void check_size();
     };
-
     class Matrix{
     public:
         std::vector<std::vector<float>> array; // 行列の要素
@@ -37,8 +45,14 @@ namespace LinearAlgebra{
         Matrix operator - (Matrix m);
         Matrix operator * (Matrix m);
         Matrix operator / (Matrix m);
+        // スカラー演算
+        Matrix operator * (float k);
+        friend Matrix operator * (float k, Matrix m);
+        Matrix operator / (float k);
+        friend Matrix operator / (float k, Matrix m);
         // 行列積
         Matrix dot(Matrix m);
+
         // 行列のサイズ，要素表示
         void show();
     private:

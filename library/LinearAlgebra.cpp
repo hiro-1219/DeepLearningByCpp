@@ -50,10 +50,46 @@ namespace LinearAlgebra{
         return c;
     }
 
+    Vector Vector::operator * (float k){
+        Vector c;
+        for(int i = 0; i < this->size; i++){
+            c.array.push_back(this->array[i] * k);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Vector operator * (float k, Vector v){
+        Vector c;
+        for(int i = 0; i < v.size; i++){
+            c.array.push_back(k * v.array[i]);
+        }
+        c.check_size();
+        return c;
+    }
+
     Vector Vector::operator / (Vector v){
         Vector c;
         for(int i = 0; i < v.size; i++){
             c.array.push_back(this->array[i] / v.array[i]);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Vector Vector::operator / (float k){
+        Vector c;
+        for(int i = 0; i < this->size; i++){
+            c.array.push_back(this->array[i] / k);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Vector operator / (float k, Vector v){
+        Vector c;
+        for(int i = 0; i < v.size; i++){
+            c.array.push_back(k / v.array[i]);
         }
         c.check_size();
         return c;
@@ -65,6 +101,21 @@ namespace LinearAlgebra{
             dot += this->array[i] * v.array[i];
         }
         return dot;
+    }
+
+    Matrix Vector::vec_to_matrix(int axis){
+        std::vector<std::vector<float>> tmp_m;
+        if(axis == 0){ // 列ベクトル
+            tmp_m.push_back(this->array);
+        }else if(axis == 1){ // 行ベクトル
+            for(int i = 0; i < this->size; i++){
+                std::vector<float> tmp_vec;
+                tmp_vec.push_back(this->array[i]);
+                tmp_m.push_back(tmp_vec);
+            }
+        }
+        Matrix ret_m(tmp_m);
+        return ret_m;
     }
 
     void Vector::check_size(){
@@ -153,6 +204,62 @@ namespace LinearAlgebra{
             tmp_vec.clear();
             for(int j = 0; j < m.size[1]; j++){
                 tmp_vec.push_back(this->array[i][j] / m.array[i][j]);
+            }
+            c.array.push_back(tmp_vec);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Matrix Matrix::operator * (float k){
+        Matrix c;
+        std::vector<float> tmp_vec;
+        for(int i = 0; i < this->size[0]; i++){
+            tmp_vec.clear();
+            for(int j = 0; j < this->size[1]; j++){
+                tmp_vec.push_back(this->array[i][j] * k);
+            }
+            c.array.push_back(tmp_vec);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Matrix operator * (float k, Matrix m){
+        Matrix c;
+        std::vector<float> tmp_vec;
+        for(int i = 0; i < m.size[0]; i++){
+            tmp_vec.clear();
+            for(int j = 0; j < m.size[1]; j++){
+                tmp_vec.push_back(k * m.array[i][j]);
+            }
+            c.array.push_back(tmp_vec);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Matrix Matrix::operator / (float k){
+        Matrix c;
+        std::vector<float> tmp_vec;
+        for(int i = 0; i < this->size[0]; i++){
+            tmp_vec.clear();
+            for(int j = 0; j < this->size[1]; j++){
+                tmp_vec.push_back(this->array[i][j] / k);
+            }
+            c.array.push_back(tmp_vec);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Matrix operator / (float k, Matrix m){
+        Matrix c;
+        std::vector<float> tmp_vec;
+        for(int i = 0; i < m.size[0]; i++){
+            tmp_vec.clear();
+            for(int j = 0; j < m.size[1]; j++){
+                tmp_vec.push_back(k / m.array[i][j]);
             }
             c.array.push_back(tmp_vec);
         }

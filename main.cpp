@@ -26,5 +26,36 @@ int main(void){
     rand1.show(); rand2.show();
     dot = rand1.dot(rand2);
     dot.show();
+
+    LinearAlgebra::Matrix rand3({10, 1}, 0, 10);
+    rand3.show();
+
+
+    LinearAlgebra::Vector test1(10, 0, 10);
+    LinearAlgebra::Matrix M_test1_1, M_test1_2;
+    M_test1_1 = test1.vec_to_matrix(0);
+    M_test1_2 = test1.vec_to_matrix(1);
+    test1.show();
+    M_test1_1.show(); M_test1_2.show();
+
+    LinearAlgebra::Vector test2(10, 0, 10);
+    LinearAlgebra::Vector test2_2;
+    test2.show();
+    test2_2 = test2 * 10;
+    test2_2.show();
+
+    test2_2 = test2 / 10;
+    test2_2.show();
+
+    test2_2 = 10 / test2;
+    test2_2.show();
+
+    LinearAlgebra::Matrix test3({10, 10}, 0, 10);
+    LinearAlgebra::Matrix test3_2;
+    test3.show();
+    test3_2 = test3 * 10; test3_2.show();
+    test3_2 = 10 * test3; test3_2.show();
+    test3_2 = test3 / 10; test3_2.show();
+    test3_2 = 10 / test3; test3_2.show();
     return 0;
 }
