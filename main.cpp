@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include "./header/LinearAlgebra.hpp"
+#include "./header/Plot.hpp"
 
 int main(void){
     LinearAlgebra::Vector a({1, 3, 5, 7, 9});
@@ -10,6 +11,7 @@ int main(void){
     a.show(); b.show();
     add = a + b;
     c = a.dot(b);
+    a.show();
     add.show();
     std::cout << c << "\n";
 
@@ -61,5 +63,16 @@ int main(void){
     LinearAlgebra::Vector test4;
     test4 = LinearAlgebra::arange(0, 10, 0.1);
     test4.show();
+
+    LinearAlgebra::Vector plot_x({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    LinearAlgebra::Vector plot_y({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    LinearAlgebra::Vector plot_y2({10, 9, 8, 7, 6, 5, 4, 3, 2, 1});
+    LinearAlgebra::Vector plot_y3({1, 5, 2, 4, 5, 6, 1, 3, 5, 6});
+    Plot::PlotGraph plot("gnuplot -persist");
+    plot.plot_start();
+    plot.plot(plot_x, plot_y, {0, 11}, {0, 11}, {"x", "y"});
+    plot.replot(plot_x, plot_y2, "blue");
+    plot.replot(plot_x, plot_y3, "green");
+    plot.plot_end();
     return 0;
 }

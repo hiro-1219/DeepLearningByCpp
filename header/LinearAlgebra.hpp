@@ -1,4 +1,5 @@
-#ifndef LinearAlgebra
+#ifndef LINEARALGEBRA_HPP
+#define LINEARALGEBRA_HPP
 #include<iostream>
 #include<vector>
 #include<math.h>
