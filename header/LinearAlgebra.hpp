@@ -61,6 +61,9 @@ namespace LinearAlgebra{
         // 行列の行，列からベクトルとして取り出す．
         Vector get_vector(int axis, int n);
     };
+
+    // arange
+    Vector arange(float range0, float range1, float n);
 }
 
 #endif

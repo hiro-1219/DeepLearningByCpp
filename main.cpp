@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include "./library/LinearAlgebra.hpp"
+#include "./header/LinearAlgebra.hpp"
 
 int main(void){
     LinearAlgebra::Vector a({1, 3, 5, 7, 9});
@@ -57,5 +57,9 @@ int main(void){
     test3_2 = 10 * test3; test3_2.show();
     test3_2 = test3 / 10; test3_2.show();
     test3_2 = 10 / test3; test3_2.show();
+
+    LinearAlgebra::Vector test4;
+    test4 = LinearAlgebra::arange(0, 10, 0.1);
+    test4.show();
     return 0;
 }
