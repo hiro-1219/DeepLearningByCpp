@@ -12,4 +12,9 @@ namespace LinearAlgebra{
         Vector ret_vec(tmp_vec);
         return ret_vec;
     }
+
+    Vector array(std::vector<float> v){
+        Vector ret_vec(v);
+        return ret_vec;
+    }
 }

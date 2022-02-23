@@ -65,6 +65,8 @@ namespace LinearAlgebra{
 
     // arange
     Vector arange(float range0, float range1, float n);
+    // array
+    Vector array(std::vector<float> v);
 }
 
 #endif

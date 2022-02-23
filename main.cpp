@@ -96,5 +96,9 @@ int main(void){
     plot.plot_start();
     plot.plot_3d(test_function, {0, 10}, {0, 10}, {-1, 1}, {"x", "y", "z"}, false, true);
     plot.plot_end();
+
+    LinearAlgebra::Vector array_test;
+    array_test = LinearAlgebra::array({1, 2, 3, 4, 5});
+    array_test.show();
     return 0;
 }
