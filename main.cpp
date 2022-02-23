@@ -1,7 +1,20 @@
 #include<iostream>
 #include<vector>
+#include<math.h>
 #include "./header/LinearAlgebra.hpp"
 #include "./header/Plot.hpp"
+
+
+LinearAlgebra::Matrix test_function(LinearAlgebra::Vector x, LinearAlgebra::Vector y){
+    LinearAlgebra::Matrix z({x.size, y.size}, 0, 1);
+    for(int i = 0; i < x.size; i++){
+        for(int j = 0; j < x.size; j++){
+            z.array[i][j] = sin(x.array[i]) * cos(y.array[j]);
+        }
+    }
+    return z;
+}
+
 
 int main(void){
     LinearAlgebra::Vector a({1, 3, 5, 7, 9});
@@ -73,6 +86,15 @@ int main(void){
     plot.plot(plot_x, plot_y, {0, 11}, {0, 11}, {"x", "y"});
     plot.replot(plot_x, plot_y2, "blue");
     plot.replot(plot_x, plot_y3, "green");
+    plot.plot_end();
+
+    LinearAlgebra::Vector scatter_x(50, 0, 10), scatter_y(50, 0, 10);
+    plot.plot_start();
+    plot.scatter(scatter_x, scatter_y, {0, 10}, {0, 10}, {"x", "y"});
+    plot.plot_end();
+
+    plot.plot_start();
+    plot.plot_3d(test_function, {0, 10}, {0, 10}, {-1, 1}, {"x", "y", "z"}, false, true);
     plot.plot_end();
     return 0;
 }
