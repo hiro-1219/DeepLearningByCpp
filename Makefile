@@ -1,2 +1,2 @@
-compile:
-	g++ -Wall -o main.o main.cpp ./library/LinearAlgebra/* ./library/Plot/* -lm
+compile_main:
+	g++ -Wall -o out main.cpp ./library/LinearAlgebra/* ./library/Plot/* -lm
