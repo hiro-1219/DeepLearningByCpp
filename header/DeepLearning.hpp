@@ -7,6 +7,7 @@
 namespace DeepLearning::Functions{
     LinearAlgebra::Vector sigmoid(LinearAlgebra::Vector x);       // sigmoid
     LinearAlgebra::Vector step_function(LinearAlgebra::Vector x); // step
+    LinearAlgebra::Vector ReLU(LinearAlgebra::Vector x);
 }
 
 #endif

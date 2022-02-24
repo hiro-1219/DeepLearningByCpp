@@ -16,4 +16,10 @@ namespace DeepLearning::Functions{
         ret_vec = x.map([](float x)->float{return x > 0;});
         return ret_vec;
     }
+
+    LinearAlgebra::Vector ReLU(LinearAlgebra::Vector x){
+        LinearAlgebra::Vector ret_vec;
+        ret_vec = LinearAlgebra::maximum(LinearAlgebra::zeros(x.size), x);
+        return ret_vec;
+    }
 }
