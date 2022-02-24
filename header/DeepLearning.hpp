@@ -9,6 +9,9 @@ namespace DeepLearning::Functions{
     LinearAlgebra::Matrix sigmoid(LinearAlgebra::Matrix x);       // sigmoid
     LinearAlgebra::Vector identity_function(LinearAlgebra::Vector x);
     LinearAlgebra::Matrix identity_function(LinearAlgebra::Matrix x);
+    LinearAlgebra::Vector softmax(LinearAlgebra::Vector x);
+    LinearAlgebra::Matrix softmax(LinearAlgebra::Matrix x);
+
     LinearAlgebra::Vector step_function(LinearAlgebra::Vector x); // step
     LinearAlgebra::Vector ReLU(LinearAlgebra::Vector x);
 }

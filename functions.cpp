@@ -21,5 +21,10 @@ int main(void){
     plot.plot_start();
     plot.plot(x, y_ReLU, {-6.0, 6.0}, {-1.0, 5.5}, {"x", "y"}, "red", false);
     plot.plot_end();
+
+    LinearAlgebra::Vector a = LinearAlgebra::array({1010, 1000, 990});
+    LinearAlgebra::Vector softmax_a = Functions::softmax(a);
+    a.show(); softmax_a.show();
+
     return 0;
 }

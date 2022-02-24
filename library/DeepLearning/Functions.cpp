@@ -25,6 +25,19 @@ namespace DeepLearning::Functions{
         return x;
     }
 
+    LinearAlgebra::Vector softmax(LinearAlgebra::Vector x){
+        float c = x.max()[0];
+        std::cout << c << "\n";
+        LinearAlgebra::Vector exp_a = x.map([&c](float i)->float{return exp(i - c);});
+        return exp_a / exp_a.sum();
+    }
+
+    LinearAlgebra::Matrix softmax(LinearAlgebra::Matrix x){
+        LinearAlgebra::Vector tmp_vec = x.matrix_to_vec();
+        LinearAlgebra::Vector ret_vec = softmax(tmp_vec);
+        return ret_vec.vec_to_matrix(0);
+    }
+
 
     LinearAlgebra::Vector step_function(LinearAlgebra::Vector x){
         LinearAlgebra::Vector ret_vec;

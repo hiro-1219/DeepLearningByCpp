@@ -28,7 +28,14 @@ namespace LinearAlgebra{
         float sum(); // 全要素の和
         std::vector<float> min(); // 最小値(値, インデックス)
         std::vector<float> max(); // 最大値(値, インデックス)
-        Vector map(float (*condition)(float i)); // map関数
+        template<class Fn> Vector map(Fn condition){ // map関数
+            std::vector<float> tmp_vec;
+            for(int i = 0; i < this->size; i++){
+                tmp_vec.push_back(condition(this->array[i]));
+            }
+            Vector ret_vec(tmp_vec);
+            return ret_vec;
+        }
         Matrix vec_to_matrix(int axis);  // ベクトルから行列へ変換
         void show(); // ベクトルのサイズ，要素表示
     private:
