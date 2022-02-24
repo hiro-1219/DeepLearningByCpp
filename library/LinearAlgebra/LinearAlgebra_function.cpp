@@ -18,6 +18,11 @@ namespace LinearAlgebra{
         return ret_vec;
     }
 
+    Matrix array(std::vector<std::vector<float>> m){
+        Matrix ret_matrix(m);
+        return ret_matrix;
+    }
+
     Vector maximum(Vector a, Vector b){
         std::vector<float> tmp_vec;
         for(int i = 0; i < a.size; i++){

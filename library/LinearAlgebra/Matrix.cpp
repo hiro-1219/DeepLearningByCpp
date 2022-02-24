@@ -155,6 +155,13 @@ namespace LinearAlgebra{
         return c;
     }
 
+    Vector Matrix::matrix_to_vec(){
+        Vector ret_vec;
+        if(this->size[0] == 1) ret_vec = get_vector(0, 0);
+        else if(this->size[1] == 1) ret_vec = get_vector(1, 0);
+        return ret_vec;
+    }
+
     void Matrix::show(){
         std::cout << "Matrix{" << this->size[0] << " * " << this->size[1] << "}\n" << "["; 
         for(int i = 0; i < this->size[0]; i++){

@@ -51,11 +51,9 @@ namespace LinearAlgebra{
         friend Matrix operator * (float k, Matrix m);
         Matrix operator / (float k);
         friend Matrix operator / (float k, Matrix m);
-        // 行列積
-        Matrix dot(Matrix m);
-
-        // 行列のサイズ，要素表示
-        void show();
+        Matrix dot(Matrix m); // 行列積
+        Vector matrix_to_vec(); // 行列からベクトルへ変換
+        void show(); // 行列のサイズ，要素表示
     private:
         // 行列のサイズを求める
         void check_size();
@@ -65,6 +63,7 @@ namespace LinearAlgebra{
 
     Vector arange(float range0, float range1, float n); // arange
     Vector array(std::vector<float> v);                 // array
+    Matrix array(std::vector<std::vector<float>> m);
     Vector maximum(Vector a, Vector b);
     Vector zeros(int n);
     Vector ones(int n);
