@@ -83,7 +83,10 @@ namespace Plot{
         fprintf(this->gp, "set ylabel \"%s\"\n", label[1]);
         fprintf(this->gp, "set zlabel \"%s\"\n", label[2]);
         if(viewmap == true) fprintf(this->gp, "set view map\n");
-        if(colormap == true) fprintf(this->gp, "set pm3d\n");
+        if(colormap == true){
+           fprintf(this->gp, "set palette rgbformula 22,13,-31\n");
+           fprintf(this->gp, "set pm3d\n");
+        } 
         fprintf(this->gp, "splot '-' using 1:2:3 with lines ");
         if(colormap == true) fprintf(this->gp, "\n");
         else if(colormap == false) fprintf(this->gp, "lc rgb \"%s\"\n", lc);
@@ -97,6 +100,39 @@ namespace Plot{
                 fprintf(this->gp, "%f %f %f\n", x.array[i], y.array[j], z.array[i][j]);
             }
             fprintf(this->gp, "\n");
+        }
+        fprintf(this->gp, "e\n");
+    }
+
+    void PlotGraph::plot_3d(LinearAlgebra::Vector x, LinearAlgebra::Vector y, LinearAlgebra::Vector z,
+                            std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range,
+                            std::vector<const char*> label, bool viewmap, const char* lc, bool point){
+        fprintf(this->gp, "unset pm3d\n");
+        fprintf(this->gp, "set xrange [%f:%f]\n", x_range[0], x_range[1]);
+        fprintf(this->gp, "set yrange [%f:%f]\n", y_range[0], y_range[1]);
+        fprintf(this->gp, "set zrange [%f:%f]\n", z_range[0], z_range[1]);
+        fprintf(this->gp, "set xlabel \"%s\"\n", label[0]);
+        fprintf(this->gp, "set ylabel \"%s\"\n", label[1]);
+        fprintf(this->gp, "set zlabel \"%s\"\n", label[2]);
+        if(viewmap == true) fprintf(this->gp, "set view map\n");
+        if(point == true) fprintf(this->gp, "splot '-' with linespoints lc rgb \"%s\"\n", lc);
+        else if(point == false) fprintf(this->gp, "splot '-' with lines lc rgb \"%s\"\n", lc);
+        for(int i = 0; i < x.size; i++){
+            fprintf(this->gp, "%f %f %f\n", x.array[i], y.array[i], z.array[i]);
+        }
+        fprintf(this->gp, "e\n");
+    }
+
+    void PlotGraph::quiver(LinearAlgebra::Vector x, LinearAlgebra::Vector y, LinearAlgebra::Vector u, LinearAlgebra::Vector v,
+                           std::vector<float> x_range, std::vector<float> y_range,
+                           std::vector<const char*> label, const char* lc){
+        fprintf(this->gp, "set xrange [%f:%f]\n", x_range[0], x_range[1]);
+        fprintf(this->gp, "set yrange [%f:%f]\n", y_range[0], y_range[1]);
+        fprintf(this->gp, "set xlabel \"%s\"\n", label[0]);
+        fprintf(this->gp, "set ylabel \"%s\"\n", label[1]);
+        fprintf(this->gp, "plot '-' with vectors lc rgb \"%s\"\n", lc);
+        for(int i = 0; i < x.size; i++){
+            fprintf(this->gp, "%f %f %f %f\n", x.array[i], y.array[i], u.array[i], v.array[i]);
         }
         fprintf(this->gp, "e\n");
     }

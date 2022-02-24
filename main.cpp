@@ -93,12 +93,25 @@ int main(void){
     plot.scatter(scatter_x, scatter_y, {0, 10}, {0, 10}, {"x", "y"});
     plot.plot_end();
 
+
+    LinearAlgebra::Vector plot_z({-1, 0, 1, 0, -1, 0, 1, 0, -1, 0});
     plot.plot_start();
-    plot.plot_3d(test_function, {0, 10}, {0, 10}, {-1, 1}, {"x", "y", "z"}, false, true);
+    plot.plot_3d(test_function, {0, 10}, {0, 10}, {-1, 1}, {"x", "y", "z"});
+    plot.plot_3d(plot_x, plot_y, plot_z, {0, 10}, {0, 10}, {-1, 1}, {"x", "y", "z"}, false);
     plot.plot_end();
 
     LinearAlgebra::Vector array_test;
     array_test = LinearAlgebra::array({1, 2, 3, 4, 5});
     array_test.show();
+
+    LinearAlgebra::Vector quiver_x({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    LinearAlgebra::Vector quiver_y({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    LinearAlgebra::Vector quiver_v, quiver_u;
+    quiver_v = -0.2 * quiver_x;
+    quiver_u = 0.1 * quiver_y;
+    
+    plot.plot_start();
+    plot.quiver(quiver_x, quiver_y, quiver_u, quiver_v, {-1, 11}, {-1, 11}, {"x", "y"});
+    plot.plot_end();
     return 0;
 }

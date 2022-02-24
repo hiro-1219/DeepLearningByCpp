@@ -18,9 +18,16 @@ namespace Plot{
         void scatter(LinearAlgebra::Vector x, LinearAlgebra::Vector y,
                      std::vector<float> x_range, std::vector<float> y_range,
                      std::vector<const char*> label, const char* lc = "red");
+        // FIXME: <line 0: undefined variable: smooth>問題
         void plot_3d(LinearAlgebra::Matrix (*function)(LinearAlgebra::Vector, LinearAlgebra::Vector),
                     std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range, 
                     std::vector<const char*> label,  bool viewmap = false, bool colormap = false, const char* lc = "red");
+        void plot_3d(LinearAlgebra::Vector x, LinearAlgebra::Vector y, LinearAlgebra::Vector z,
+                     std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range,
+                     std::vector<const char*> label, bool viewmap = false, const char* lc = "red", bool point = true);
+        void quiver(LinearAlgebra::Vector x, LinearAlgebra::Vector y, LinearAlgebra::Vector u, LinearAlgebra::Vector v,
+                    std::vector<float> x_range, std::vector<float> y_range, 
+                    std::vector<const char*> label, const char* lc = "red");
     };
 }
 
