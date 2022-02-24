@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<random>
+#include<algorithm>
 #include "../../header/LinearAlgebra.hpp"
 
 namespace LinearAlgebra{
@@ -109,6 +110,26 @@ namespace LinearAlgebra{
             ret += this->array[i];
         }
         return ret;
+    }
+
+    std::vector<float> Vector::min(){
+        std::vector<float> ret_vec = this->array;
+        Vector index = arange(0, this->size, 1);
+        std::vector<float> ret_vec_index = index.array;
+        std::sort(ret_vec_index.begin(), ret_vec_index.end(), [&ret_vec](int i1, int i2){
+            return ret_vec[i1] < ret_vec[i2];
+        });
+        return {ret_vec[ret_vec_index[0]], ret_vec_index[0]};
+    }
+
+    std::vector<float> Vector::max(){
+        std::vector<float> ret_vec = this->array;
+        Vector index = arange(0, this->size, 1);
+        std::vector<float> ret_vec_index = index.array;
+        std::sort(ret_vec_index.begin(), ret_vec_index.end(), [&ret_vec](int i1, int i2){
+            return ret_vec[i1] > ret_vec[i2];
+        });
+        return {ret_vec[ret_vec_index[0]], ret_vec_index[0]};
     }
 
     Vector Vector::map(float (*condition)(float i)){

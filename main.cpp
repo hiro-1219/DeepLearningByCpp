@@ -123,5 +123,22 @@ int main(void){
     LinearAlgebra::Vector map_ans;
     map_ans = map_test.map([](float i)->float{return i > 3;});
     map_test.show(); map_ans.show();
+
+    LinearAlgebra::Vector min_test({4, 3, 3, 5, 2});
+    std::vector<float> min_ret = min_test.min();
+    min_test.show();
+    std::cout << min_ret[0] << ":" << min_ret[1] << "\n";
+
+    LinearAlgebra::Vector max_test({4, 2, 6, 1, 5});
+    std::vector<float> max_ret = max_test.max();
+    max_test.show();
+    std::cout << max_ret[0] << ":" << max_ret[1] << "\n";
+
+    LinearAlgebra::Vector zero_test, one_test;
+    zero_test = LinearAlgebra::zeros(10);
+    one_test = LinearAlgebra::ones(10);
+    zero_test.show();
+    one_test.show();
+
     return 0;
 }

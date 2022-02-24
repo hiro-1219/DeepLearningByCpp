@@ -24,18 +24,15 @@ namespace LinearAlgebra{
         friend Vector operator * (float k, Vector v);
         Vector operator / (float k);
         friend Vector operator / (float k, Vector v);
-        // ベクトル積
         float dot(Vector v); // 内積
-        // 全要素の和
-        float sum();
-        Vector map(float (*condition)(float i));
-        // ベクトルから行列へ変換
-        Matrix vec_to_matrix(int axis);
-        // ベクトルのサイズ，要素表示
-        void show();
+        float sum(); // 全要素の和
+        std::vector<float> min(); // 最小値(値, インデックス)
+        std::vector<float> max(); // 最大値(値, インデックス)
+        Vector map(float (*condition)(float i)); // map関数
+        Matrix vec_to_matrix(int axis);  // ベクトルから行列へ変換
+        void show(); // ベクトルのサイズ，要素表示
     private:
-        // ベクトルのサイズを求める
-        void check_size();
+        void check_size();  // ベクトルのサイズを求める
     };
     class Matrix{
     public:
@@ -66,10 +63,11 @@ namespace LinearAlgebra{
         Vector get_vector(int axis, int n);
     };
 
-    // arange
-    Vector arange(float range0, float range1, float n);
-    // array
-    Vector array(std::vector<float> v);
+    Vector arange(float range0, float range1, float n); // arange
+    Vector array(std::vector<float> v);                 // array
+    Vector maximum(Vector a, Vector b);
+    Vector zeros(int n);
+    Vector ones(int n);
 }
 
 #endif

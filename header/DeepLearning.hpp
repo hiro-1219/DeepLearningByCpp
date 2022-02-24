@@ -5,7 +5,8 @@
 #include "LinearAlgebra.hpp"
 
 namespace DeepLearning::Functions{
-    
+    LinearAlgebra::Vector sigmoid(LinearAlgebra::Vector x);       // sigmoid
+    LinearAlgebra::Vector step_function(LinearAlgebra::Vector x); // step
 }
 
 #endif
