@@ -113,5 +113,15 @@ int main(void){
     plot.plot_start();
     plot.quiver(quiver_x, quiver_y, quiver_u, quiver_v, {-1, 11}, {-1, 11}, {"x", "y"});
     plot.plot_end();
+
+    LinearAlgebra::Vector testtest = LinearAlgebra::arange(0, 10, 1);
+    float test_sum = testtest.sum();
+    testtest.show();
+    std::cout << test_sum << "\n";
+
+    LinearAlgebra::Vector map_test({1, 2, 3, 4, 5, 6, 7, 8, 9});
+    LinearAlgebra::Vector map_ans;
+    map_ans = map_test.map([](float i)->float{return i > 3;});
+    map_test.show(); map_ans.show();
     return 0;
 }

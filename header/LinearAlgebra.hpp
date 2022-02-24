@@ -26,6 +26,9 @@ namespace LinearAlgebra{
         friend Vector operator / (float k, Vector v);
         // ベクトル積
         float dot(Vector v); // 内積
+        // 全要素の和
+        float sum();
+        Vector map(float (*condition)(float i));
         // ベクトルから行列へ変換
         Matrix vec_to_matrix(int axis);
         // ベクトルのサイズ，要素表示

@@ -103,6 +103,23 @@ namespace LinearAlgebra{
         return dot;
     }
 
+    float Vector::sum(){
+        float ret = 0;
+        for(int i = 0; i < this->size; i++){
+            ret += this->array[i];
+        }
+        return ret;
+    }
+
+    Vector Vector::map(float (*condition)(float i)){
+        std::vector<float> tmp_vec;
+        for(int i = 0; i < this->size; i++){
+            tmp_vec.push_back(condition(this->array[i]));
+        }
+        Vector ret_vec(tmp_vec);
+        return ret_vec;
+    }
+
     Matrix Vector::vec_to_matrix(int axis){
         std::vector<std::vector<float>> tmp_m;
         if(axis == 0){ // 列ベクトル
