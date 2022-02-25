@@ -30,14 +30,26 @@ namespace DeepLearning::Differential{
         float h = 1e-4;
         return (function(x + h) - function(x - h)) / (2 * h);
     }
+    template<class Fn> LinearAlgebra::Vector numerical_gradient(Fn function, LinearAlgebra::Vector x){
+        float h = 1e-4;
+        LinearAlgebra::Vector grad(x.size, 0, 1);
+        LinearAlgebra::Vector tmp_x = x;
+        for(int i = 0; i < x.size; i++){
+            float tmp_x_val = tmp_x.array[i];
+            tmp_x.array[i] = tmp_x_val + h;
+            float fxh1 = function(tmp_x);
+            tmp_x.array[i] = tmp_x_val - h;
+            float fxh2 = function(tmp_x);
+            grad.array[i] = (fxh1 - fxh2) / (2 * h);
+            tmp_x = x;
+        }
+        return grad;
+    }
 }
 
 namespace DeepLearning::Utils{
     template <class T, class L> class Batch{
         public:
-        // バッチのデータ構造はどうするべきか
-        // -> std::vector<T> batch;
-        // FIXME : 教師データのラベル考えてなかった
             std::vector<T> subject;
             std::vector<L> label;
             int batch_size;

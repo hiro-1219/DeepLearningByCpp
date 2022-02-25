@@ -169,7 +169,7 @@ namespace Plot{
         fprintf(this->gp, "set ylabel \"%s\"\n", label[1]);
         fprintf(this->gp, "plot '-' with vectors lc rgb \"%s\"\n", lc);
         for(int i = 0; i < x.size; i++){
-            fprintf(this->gp, "%f %f %f %f\n", x.array[i], y.array[i], u.array[i], v.array[i]);
+            fprintf(this->gp, "%f %f %f %f\n", x.array[i], y.array[i], u.array[i] * 0.05, v.array[i] * 0.05);
         }
         fprintf(this->gp, "e\n");
     }
