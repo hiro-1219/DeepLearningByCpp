@@ -102,6 +102,6 @@ int main(void){
     plot.quiver(new_x0, new_x1, u, v, {-2.0, 2.0}, {-2.0, 2.0}, {"x0", "x1"});
     plot.plot_end();
 
-    DeepLearning::Optimizer::gradient_descent(test_function2_2, LinearAlgebra::array({-3.0, 4.0}), 0.1, 100).show();
+    DeepLearning::Optimizer::gradient_descent(test_function2_2, LinearAlgebra::array({-3.0, 4.0}), 0.1, 100, {true, true}).show();
     return 0;
 }

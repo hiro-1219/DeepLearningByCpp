@@ -96,7 +96,7 @@ namespace DeepLearning::Utils{
 }
 
 namespace DeepLearning::Optimizer{
-    template<class Fn> LinearAlgebra::Vector gradient_descent(Fn function, LinearAlgebra::Vector init_x, float lr = 0.01, float step_num = 100){
+    template<class Fn> LinearAlgebra::Vector gradient_descent(Fn function, LinearAlgebra::Vector init_x, float lr = 0.01, float step_num = 100, std::vector<bool> plot_graph = {false, false}){
         LinearAlgebra::Vector x = init_x;
         std::vector<LinearAlgebra::Vector> x_vec;
         std::vector<float> z_vec;
@@ -109,15 +109,16 @@ namespace DeepLearning::Optimizer{
             z_vec.push_back(function(x));
         }
         LinearAlgebra::Vector z(z_vec);
-        //x_vec[0].show(); x_vec[1].show(); z.show();
         LinearAlgebra::Matrix x_matrix = Utils::get_matrix(x_vec);
         LinearAlgebra::Vector x0 = x_matrix.get_vector(1, 0);
         LinearAlgebra::Vector x1 = x_matrix.get_vector(1, 1);
-        Plot::PlotGraph plot("gnuplot -persist");
-        plot.plot_start();
-        plot.plot_3d(function, {-3.5, 3.5}, {-4.5, 4.5}, {0, 18}, {"x0", "x1", "f(x)"}, false, true, "blue");
-        plot.plot_3d(x0, x1, z, {-3.5, 3.5}, {-4.5, 4.5}, {0, 18}, {"x0", "x1", "f(x)"});
-        plot.plot_end();
+        if(plot_graph[0] == true){
+            Plot::PlotGraph plot("gnuplot -persist");
+            plot.plot_start();
+            plot.plot_3d(function, {-3.5, 3.5}, {-4.5, 4.5}, {0, 18}, {"x0", "x1", "f(x)"}, plot_graph[1], true, "blue");
+            plot.plot_3d(x0, x1, z, {-3.5, 3.5}, {-4.5, 4.5}, {0, 18}, {"x0", "x1", "f(x)"});
+            plot.plot_end();
+        }
         return x;
     }
 }
