@@ -74,7 +74,7 @@ int main(void){
     LinearAlgebra::Vector x1 = LinearAlgebra::arange(-3, 3, 0.1);
     LinearAlgebra::Matrix z = test_function(x0, x1);
     plot.plot_start();
-    plot.plot_3d(test_function2, {-3, 3}, {-3, 3}, {0, 18}, {"x0", "x1", "f(x)"}, false, false, "red");
+    plot.plot_3d(test_function2_2, {-3, 3}, {-3, 3}, {0, 18}, {"x0", "x1", "f(x)"}, false, false, "red");
     plot.plot_end();
     
     Differential::numerical_gradient(test_function2_2, LinearAlgebra::array({3.0, 4.0})).show();
@@ -101,5 +101,7 @@ int main(void){
     plot.plot_start();
     plot.quiver(new_x0, new_x1, u, v, {-2.0, 2.0}, {-2.0, 2.0}, {"x0", "x1"});
     plot.plot_end();
+
+    DeepLearning::Optimizer::gradient_descent(test_function2_2, LinearAlgebra::array({-3.0, 4.0}), 0.1, 100).show();
     return 0;
 }

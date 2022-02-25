@@ -22,8 +22,11 @@ namespace Plot{
                      std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range,
                      std::vector<const char*> label, bool viewmap = false, bool colormap = false, const char* lc = "red");
         void plot_3d(LinearAlgebra::Matrix (*function)(LinearAlgebra::Vector, LinearAlgebra::Vector),
-                    std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range, 
-                    std::vector<const char*> label,  bool viewmap = false, bool colormap = false, const char* lc = "red");
+                     std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range, 
+                     std::vector<const char*> label, bool viewmap = false, bool colormap = false, const char* lc = "red");
+        void plot_3d(float (*function)(LinearAlgebra::Vector), 
+                     std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range,
+                     std::vector<const char*> label, bool viewmap = false, bool colormap = false, const char* lc = "red");
         void plot_3d(LinearAlgebra::Vector x, LinearAlgebra::Vector y, LinearAlgebra::Vector z,
                      std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range,
                      std::vector<const char*> label, bool viewmap = false, const char* lc = "red", bool point = true);
