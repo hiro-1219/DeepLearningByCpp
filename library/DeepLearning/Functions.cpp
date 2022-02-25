@@ -75,3 +75,4 @@ namespace DeepLearning::Functions::Loss{
         return ret_loss / y.size[0];
     }
 }
+

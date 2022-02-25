@@ -41,6 +41,15 @@ int main(void){
     ans = Functions::Loss::cross_entropy_loss(y2, t);
     std::cout << ans << "\n";
 
+    float diff_value = Differential::numerical_differential([](float x){return 0.01*x*x + 0.1*x;}, 5);
+    std::cout << diff_value << "\n";
 
+    LinearAlgebra::Vector diff_x = LinearAlgebra::arange(0, 20, 0.1);
+    LinearAlgebra::Vector diff_y = diff_x.map([](float x)->float{return 0.01*x*x + 0.1*x;});
+    LinearAlgebra::Vector diff_y_end = diff_x.map([&diff_value](float x)->float{return diff_value * (x - 5) + 0.75;});
+    plot.plot_start();
+    plot.plot(diff_x, diff_y, {0, 20}, {0, 6}, {"x", "y"}, "red", false);
+    plot.replot(diff_x, diff_y_end, "blue", false);
+    plot.plot_end();
     return 0;
 }

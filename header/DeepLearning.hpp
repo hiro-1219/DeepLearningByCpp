@@ -25,6 +25,13 @@ namespace DeepLearning::Functions::Loss{
     float cross_entropy_loss(LinearAlgebra::Matrix y, LinearAlgebra::Matrix t);
 }
 
+namespace DeepLearning::Differential{
+    template<class Fn> float numerical_differential(Fn function, float x){
+        float h = 1e-4;
+        return (function(x + h) - function(x - h)) / (2 * h);
+    }
+}
+
 namespace DeepLearning::Utils{
     template <class T, class L> class Batch{
         public:
