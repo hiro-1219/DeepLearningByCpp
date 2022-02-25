@@ -65,11 +65,11 @@ namespace LinearAlgebra{
         Matrix dot(Matrix m); // 行列積
         Vector matrix_to_vec(); // 行列からベクトルへ変換
         void show(); // 行列のサイズ，要素表示
+        // 行列の行，列からベクトルとして取り出す．
+        Vector get_vector(int axis, int n);
     private:
         // 行列のサイズを求める
         void check_size();
-        // 行列の行，列からベクトルとして取り出す．
-        Vector get_vector(int axis, int n);
     };
 
     Vector arange(float range0, float range1, float n); // arange

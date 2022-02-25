@@ -22,37 +22,54 @@ namespace DeepLearning::Functions::Loss{
     float sum_squared_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t);
     float cross_entropy_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t);
     float cross_entropy_loss(std::vector<LinearAlgebra::Vector> y, std::vector<LinearAlgebra::Vector> t);
+    float cross_entropy_loss(LinearAlgebra::Matrix y, LinearAlgebra::Matrix t);
 }
 
 namespace DeepLearning::Utils{
-    template <class T> class Batch{
+    template <class T, class L> class Batch{
         public:
         // バッチのデータ構造はどうするべきか
         // -> std::vector<T> batch;
         // FIXME : 教師データのラベル考えてなかった
-            std::vector<T> batch;
+            std::vector<T> subject;
+            std::vector<L> label;
             int batch_size;
             int batch_vec_size;
-            Batch(std::vector<T> subject, int batch_size){
+            Batch(std::vector<T> subject, std::vector<L> label, int batch_size){
                 this->batch_size = batch_size;
-                this->batch = subject;
+                LinearAlgebra::Vector index_vec = LinearAlgebra::arange(0, subject.size(), 1);
+                std::vector<float> index = index_vec.array;
                 std::mt19937 mt;
-                std::shuffle(this->batch.begin(), this->batch.end(), mt);
+                std::shuffle(index.begin(), index.end(), mt);
+                for(int i = 0; i < (int)subject.size(); i++){
+                    this->subject.push_back(subject[(int)index[i]]);
+                    this->label.push_back(label[(int)index[i]]);
+                }
                 check_batch_vec_size();
             }
-            std::vector<T> at(int n){
+            std::vector<T> at_subject(int n){
                 std::vector<T> ret_vec;
                 int in_batch_size;
                 if(this->batch_vec_size < (n + 1) * this->batch_size) in_batch_size = this->batch_vec_size - n * this->batch_size;
                 else in_batch_size = this->batch_size;
                 for(int i = n * this->batch_size; i < n * this->batch_size + in_batch_size; i++){
-                    ret_vec.push_back(this->batch[i]);
+                    ret_vec.push_back(this->subject[i]);
+                }
+                return ret_vec;
+            }
+            std::vector<L> at_label(int n){
+                std::vector<L> ret_vec;
+                int in_batch_size;
+                if(this->batch_vec_size < (n + 1) * this->batch_size) in_batch_size = this->batch_vec_size - n * this->batch_size;
+                else in_batch_size = this->batch_size;
+                for(int i = n * this->batch_size; i < n * this->batch_size + in_batch_size; i++){
+                    ret_vec.push_back(this->label[i]);
                 }
                 return ret_vec;
             }
         private:
             void check_batch_vec_size(){
-                batch_vec_size = this->batch.size();
+                batch_vec_size = this->subject.size();
             }
     };
     LinearAlgebra::Matrix get_matrix(std::vector<LinearAlgebra::Vector> batch);

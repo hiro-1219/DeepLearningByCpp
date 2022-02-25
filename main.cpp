@@ -1,5 +1,7 @@
 #include<iostream>
 #include<vector>
+#include<stdlib.h>
+#include<time.h>
 #include<math.h>
 #include "./header/LinearAlgebra.hpp"
 #include "./header/Plot.hpp"
@@ -142,17 +144,26 @@ int main(void){
     zero_test.show();
     one_test.show();
 
-    std::vector<LinearAlgebra::Vector> batch_test;
+    srandom((unsigned)time(NULL));
+    std::vector<LinearAlgebra::Vector> subject_test;
+    std::vector<LinearAlgebra::Vector> label_test;
     for(int i = 0; i < 95; i++){
         LinearAlgebra::Vector rand_vec(10, 0, 10);
-        batch_test.push_back(rand_vec);
+        subject_test.push_back(rand_vec);
+        rand_vec = LinearAlgebra::zeros(10);
+        rand_vec.array[random() % 10] = 1;
+        label_test.push_back(rand_vec);
     }
 
-    Utils::Batch<LinearAlgebra::Vector> batch(batch_test, 10);
+    Utils::Batch<LinearAlgebra::Vector, LinearAlgebra::Vector> batch(subject_test, label_test, 10);
     for(int i = 0; i < 10; i++){
-        batch.at(0)[i].show();
+        batch.at_subject(0)[i].show();
+        batch.at_label(0)[i].show();
     }
-    LinearAlgebra::Matrix batch_matrix = Utils::get_matrix(batch.at(0));
-    batch_matrix.show();
+    LinearAlgebra::Matrix subject_matrix = Utils::get_matrix(batch.at_subject(0));
+    LinearAlgebra::Matrix label_matrix = Utils::get_matrix(batch.at_label(0));
+    subject_matrix.show(); label_matrix.show();
+    float ans = Functions::Loss::cross_entropy_loss(subject_matrix, label_matrix);
+    std::cout << ans << "\n";
     return 0;
 }
