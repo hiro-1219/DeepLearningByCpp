@@ -6,6 +6,20 @@
 #include "./header/DeepLearning.hpp"
 using namespace DeepLearning;
 
+LinearAlgebra::Matrix test_function(LinearAlgebra::Vector x0, LinearAlgebra::Vector x1){
+    LinearAlgebra::Matrix z({x0.size, x1.size}, 0, 1);
+    for(int i = 0; i < x0.size; i++){
+        for(int j = 0; j < x1.size; j++){
+            z.array[i][j] = x0.array[i] * x0.array[i] + x1.array[j] * x1.array[j];
+        }
+    }
+    return z;
+}
+
+float test_function2(float x0, float x1){
+    return x0*x0 + x1*x1;
+}
+
 int main(void){
     LinearAlgebra::Vector x = LinearAlgebra::arange(-5.0, 5.0, 0.1);
     LinearAlgebra::Vector y_step = Functions::Activation::step_function(x);
@@ -50,6 +64,13 @@ int main(void){
     plot.plot_start();
     plot.plot(diff_x, diff_y, {0, 20}, {0, 6}, {"x", "y"}, "red", false);
     plot.replot(diff_x, diff_y_end, "blue", false);
+    plot.plot_end();
+
+    LinearAlgebra::Vector x0 = LinearAlgebra::arange(-3, 3, 0.1);
+    LinearAlgebra::Vector x1 = LinearAlgebra::arange(-3, 3, 0.1);
+    LinearAlgebra::Matrix z = test_function(x0, x1);
+    plot.plot_start();
+    plot.plot_3d(test_function2, {-3, 3}, {-3, 3}, {0, 18}, {"x0", "x1", "f(x)"}, false, false, "red");
     plot.plot_end();
     return 0;
 }

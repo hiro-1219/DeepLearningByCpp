@@ -71,6 +71,43 @@ namespace Plot{
         fprintf(this->gp, "e\n");
     }
 
+    void PlotGraph::plot_3d(float (*function)(float, float), 
+                            std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range,
+                            std::vector<const char*> label, bool viewmap, bool colormap, const char* lc){
+        fprintf(this->gp, "set dgrid3d smooth csplines\n");
+        fprintf(this->gp, "set hidden3d\n");
+        fprintf(this->gp, "set xrange [%f:%f]\n", x_range[0], x_range[1]);
+        fprintf(this->gp, "set yrange [%f:%f]\n", y_range[0], y_range[1]);
+        fprintf(this->gp, "set zrange [%f:%f]\n", z_range[0], z_range[1]);
+        fprintf(this->gp, "set xlabel \"%s\"\n", label[0]);
+        fprintf(this->gp, "set ylabel \"%s\"\n", label[1]);
+        fprintf(this->gp, "set zlabel \"%s\"\n", label[2]);
+        if(viewmap == true) fprintf(this->gp, "set view map\n");
+        if(colormap == true){
+           fprintf(this->gp, "set palette rgbformula 22,13,-31\n");
+           fprintf(this->gp, "set pm3d\n");
+        } 
+        fprintf(this->gp, "splot '-' using 1:2:3 with lines ");
+        if(colormap == true) fprintf(this->gp, "\n");
+        else if(colormap == false) fprintf(this->gp, "lc rgb \"%s\"\n", lc);
+        LinearAlgebra::Vector x = LinearAlgebra::arange(x_range[0], x_range[1], 0.1);
+        LinearAlgebra::Vector y = LinearAlgebra::arange(y_range[0], y_range[1], 0.1);
+        LinearAlgebra::Matrix z({x.size, y.size}, 0, 1);
+        for(int i = 0; i < x.size; i++){
+            for(int j = 0; j < y.size; j++){
+                z.array[i][j] = function(x.array[i], y.array[j]);
+            }
+        }
+        for(int i = 0; i < x.size; i++){
+            for(int j = 0; j < y.size; j++){
+                fprintf(this->gp, "%f %f %f\n", x.array[i], y.array[j], z.array[i][j]);
+            }
+            fprintf(this->gp, "\n");
+        }
+        fprintf(this->gp, "e\n");
+    }
+
+    
     void PlotGraph::plot_3d(LinearAlgebra::Matrix (*function)(LinearAlgebra::Vector, LinearAlgebra::Vector),
                             std::vector<float> x_range, std::vector<float> y_range, std::vector<float> z_range,
                             std::vector<const char*> label, bool viewmap, bool colormap, const char* lc){
