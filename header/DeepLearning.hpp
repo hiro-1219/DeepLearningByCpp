@@ -21,6 +21,7 @@ namespace DeepLearning::Functions::Activation{
 namespace DeepLearning::Functions::Loss{
     float sum_squared_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t);
     float cross_entropy_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t);
+    float cross_entropy_loss(std::vector<LinearAlgebra::Vector> y, std::vector<LinearAlgebra::Vector> t);
 }
 
 namespace DeepLearning::Utils{
@@ -28,6 +29,7 @@ namespace DeepLearning::Utils{
         public:
         // バッチのデータ構造はどうするべきか
         // -> std::vector<T> batch;
+        // FIXME : 教師データのラベル考えてなかった
             std::vector<T> batch;
             int batch_size;
             int batch_vec_size;

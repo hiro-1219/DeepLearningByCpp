@@ -60,4 +60,12 @@ namespace DeepLearning::Functions::Loss{
         float delta = 1e-7;
         return -1 * (t * LinearAlgebra::BasicFunctions::log(y + delta)).sum();
     }
+    float cross_entropy_loss(std::vector<LinearAlgebra::Vector> y, std::vector<LinearAlgebra::Vector> t){
+        float delta = 1e-7;
+        float ret_loss = 0;
+        for(int i = 0; i < y.size(); i++){
+            ret_loss += cross_entropy_loss(y[i], t[i]);
+        }
+        return ret_loss / y.size();
+    }
 }
