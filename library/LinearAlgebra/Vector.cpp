@@ -51,6 +51,42 @@ namespace LinearAlgebra{
         return c;
     }
 
+    Vector Vector::operator + (float k){
+        Vector c;
+        for(int i = 0; i < this->size; i++){
+            c.array.push_back(this->array[i] + k);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Vector operator + (float k, Vector v){
+        Vector c;
+        for(int i = 0; i < v.size; i++){
+            c.array.push_back(k + v.array[i]);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Vector Vector::operator - (float k){
+        Vector c;
+        for(int i = 0; i < this->size; i++){
+            c.array.push_back(this->array[i] - k);
+        }
+        c.check_size();
+        return c;
+    }
+
+    Vector operator - (float k, Vector v){
+        Vector c;
+        for(int i = 0; i < v.size; i++){
+            c.array.push_back(k - v.array[i]);
+        }
+        c.check_size();
+        return c;
+    }
+
     Vector Vector::operator * (float k){
         Vector c;
         for(int i = 0; i < this->size; i++){

@@ -20,6 +20,10 @@ namespace LinearAlgebra{
         Vector operator * (Vector v);
         Vector operator / (Vector v);
         // スカラー演算
+        Vector operator + (float k);
+        friend Vector operator + (float k, Vector v);
+        Vector operator - (float k);
+        friend Vector operator - (float k, Vector v);
         Vector operator * (float k);
         friend Vector operator * (float k, Vector v);
         Vector operator / (float k);
@@ -76,4 +80,7 @@ namespace LinearAlgebra{
     Vector ones(int n);
 }
 
+namespace LinearAlgebra::BasicFunctions{
+    LinearAlgebra::Vector log(LinearAlgebra::Vector x);
+}
 #endif

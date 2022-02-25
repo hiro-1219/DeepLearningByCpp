@@ -1,10 +1,10 @@
 #include<iostream>
 #include<vector>
-#include<math.h>
+#include<cmath>
 #include "../../header/LinearAlgebra.hpp"
 #include "../../header/DeepLearning.hpp"
 
-namespace DeepLearning::Functions{
+namespace DeepLearning::Functions::Activation{
     LinearAlgebra::Vector sigmoid(LinearAlgebra::Vector x){
         LinearAlgebra::Vector ret_vec;
         ret_vec = x.map([](float x)->float{return 1 / (1 + exp(-x));});
@@ -49,5 +49,15 @@ namespace DeepLearning::Functions{
         LinearAlgebra::Vector ret_vec;
         ret_vec = LinearAlgebra::maximum(LinearAlgebra::zeros(x.size), x);
         return ret_vec;
+    }
+}
+
+namespace DeepLearning::Functions::Loss{
+    float sum_squared_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t){
+        return 0.5 * ((y - t) * (y - t)).sum();
+    }
+    float cross_entropy_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t){
+        float delta = 1e-7;
+        return -1 * (t * LinearAlgebra::BasicFunctions::log(y + delta)).sum();
     }
 }

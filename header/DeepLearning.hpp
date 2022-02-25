@@ -6,7 +6,7 @@
 #include<algorithm>
 #include "LinearAlgebra.hpp"
 
-namespace DeepLearning::Functions{
+namespace DeepLearning::Functions::Activation{
     LinearAlgebra::Vector sigmoid(LinearAlgebra::Vector x);       
     LinearAlgebra::Matrix sigmoid(LinearAlgebra::Matrix x);       // sigmoid
     LinearAlgebra::Vector identity_function(LinearAlgebra::Vector x);
@@ -16,6 +16,11 @@ namespace DeepLearning::Functions{
 
     LinearAlgebra::Vector step_function(LinearAlgebra::Vector x); // step
     LinearAlgebra::Vector ReLU(LinearAlgebra::Vector x);
+}
+
+namespace DeepLearning::Functions::Loss{
+    float sum_squared_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t);
+    float cross_entropy_loss(LinearAlgebra::Vector y, LinearAlgebra::Vector t);
 }
 
 namespace DeepLearning::Utils{
