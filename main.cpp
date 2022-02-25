@@ -3,6 +3,8 @@
 #include<math.h>
 #include "./header/LinearAlgebra.hpp"
 #include "./header/Plot.hpp"
+#include "./header/DeepLearning.hpp"
+using namespace DeepLearning;
 
 
 LinearAlgebra::Matrix test_function(LinearAlgebra::Vector x, LinearAlgebra::Vector y){
@@ -140,5 +142,17 @@ int main(void){
     zero_test.show();
     one_test.show();
 
+    std::vector<LinearAlgebra::Vector> batch_test;
+    for(int i = 0; i < 95; i++){
+        LinearAlgebra::Vector rand_vec(10, 0, 10);
+        batch_test.push_back(rand_vec);
+    }
+
+    Utils::Batch<LinearAlgebra::Vector> batch(batch_test, 10);
+    for(int i = 0; i < 10; i++){
+        batch.at(0)[i].show();
+    }
+    LinearAlgebra::Matrix batch_matrix = Utils::get_matrix(batch.at(0));
+    batch_matrix.show();
     return 0;
 }
