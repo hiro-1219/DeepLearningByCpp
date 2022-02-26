@@ -30,8 +30,15 @@ public:
         LinearAlgebra::Matrix y = this->predict(x);
         return Functions::Loss::cross_entropy_loss(y, t);
     }
-    float accuracy(LinearAlgebra::Matrix x, LinearAlgebra::Matrix t){
-       
+    float accuracy(std::vector<LinearAlgebra::Vector> x, std::vector<LinearAlgebra::Vector> t){
+        std::vector<LinearAlgebra::Vector> y;
+        float accuracy_cnt = 0;
+        for(int i = 0; i < x.size(); i++){
+            LinearAlgebra::Matrix tmp_y = this->predict(x[i].vec_to_matrix(0));
+            y.push_back(tmp_y.matrix_to_vec());
+            if(y[i].max()[1] == t[i].max()[1]) accuracy_cnt += 1;
+        }
+        return accuracy_cnt / (float)x.size();
     }
     std::map<std::string, LinearAlgebra::Matrix> numerical_gradient(LinearAlgebra::Matrix x, LinearAlgebra::Matrix t){
         auto loss_W = [&x, &t, this](LinearAlgebra::Matrix* W){return this->loss(x, t);};
