@@ -1,4 +1,5 @@
 #include<vector>
+#include<random>
 #include "../../header/LinearAlgebra.hpp"
 
 namespace LinearAlgebra{
@@ -23,6 +24,17 @@ namespace LinearAlgebra{
         return ret_vec;
     }
 
+    Vector array_randn(int n){
+        std::vector<float> tmp_vec;
+        std::random_device seed_gen;
+        std::default_random_engine engine(seed_gen());
+        std::normal_distribution<> dist(0.0, 1.0);
+        for(int i = 0; i < n; i++){
+            tmp_vec.push_back(dist(engine));
+        }
+        return array(tmp_vec);
+    }
+
     Matrix array(std::vector<std::vector<float>> m){
         Matrix ret_matrix(m);
         return ret_matrix;
@@ -31,6 +43,22 @@ namespace LinearAlgebra{
     Matrix array_random(std::vector<int> n, int range0, int range1){
         Matrix ret_matrix(n, range0, range1);
         return ret_matrix;
+    }
+
+    Matrix array_randn(std::vector<int> n){
+        std::vector<std::vector<float>> tmp_matrix;
+        std::random_device seed_gen;
+        std::default_random_engine engine(seed_gen());
+        std::normal_distribution<> dist(0.0, 1.0);
+        std::vector<float> tmp_vec;
+        for(int i = 0; i < n[0]; i++){
+            tmp_vec.clear();
+            for(int j = 0; j < n[1]; j++){
+                tmp_vec.push_back(dist(engine));
+            }
+            tmp_matrix.push_back(tmp_vec);
+        }
+        return array(tmp_matrix);
     }
 
     Vector maximum(Vector a, Vector b){

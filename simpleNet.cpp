@@ -42,6 +42,12 @@ int main(void){
     auto f = [&x, &t, &net](LinearAlgebra::Matrix* W){return net.loss(x.vec_to_matrix(0), t.vec_to_matrix(0));};
     LinearAlgebra::Matrix dW = Differential::numerical_gradient(f, &net.W);
     dW.show();
+
+    LinearAlgebra::Matrix test = LinearAlgebra::array_randn({5, 3});
+    test.show();
+
+    LinearAlgebra::Vector test2 = LinearAlgebra::array_randn(5);
+    test2.show();
 }
 
 

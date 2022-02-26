@@ -9,7 +9,7 @@
 
 namespace DeepLearning{
     class BaseNetwork{
-        public: 
+    public: 
         BaseNetwork(){}
         virtual LinearAlgebra::Matrix predict(LinearAlgebra::Matrix x) = 0;
         virtual float loss(LinearAlgebra::Matrix x, LinearAlgebra::Matrix y) = 0;

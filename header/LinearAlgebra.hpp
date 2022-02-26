@@ -65,18 +65,18 @@ namespace LinearAlgebra{
         Matrix dot(Matrix m); // 行列積
         Vector matrix_to_vec(); // 行列からベクトルへ変換
         void show(); // 行列のサイズ，要素表示
-        // 行列の行，列からベクトルとして取り出す．
-        Vector get_vector(int axis, int n);
+        Vector get_vector(int axis, int n); // 行列の行，列からベクトルとして取り出す．
     private:
-        // 行列のサイズを求める
-        void check_size();
+        void check_size(); // 行列のサイズを求める
     };
 
     Vector arange(float range0, float range1, float n); // arange
     Vector array(std::vector<float> v);                 // array
     Vector array_random(int n, int range0, int range1);
+    Vector array_randn(int n);
     Matrix array(std::vector<std::vector<float>> m);
     Matrix array_random(std::vector<int> n, int range0, int range1);
+    Matrix array_randn(std::vector<int> n);
     Vector maximum(Vector a, Vector b);
     Vector zeros(int n);
     Vector ones(int n);
