@@ -11,8 +11,8 @@ namespace DeepLearning{
     class BaseNetwork{
         public: 
         BaseNetwork(){}
-        virtual LinearAlgebra::Matrix predict(LinearAlgebra::Matrix x) const = 0;
-        virtual float loss(LinearAlgebra::Matrix x, LinearAlgebra::Matrix y) const = 0;
+        virtual LinearAlgebra::Matrix predict(LinearAlgebra::Matrix x) = 0;
+        virtual float loss(LinearAlgebra::Matrix x, LinearAlgebra::Matrix y) = 0;
     };
 }
 
@@ -55,16 +55,16 @@ namespace DeepLearning::Differential{
         }
         return grad;
     }
-    template<class Fn> LinearAlgebra::Matrix numerical_gradient(Fn function, LinearAlgebra::Matrix x){
+    template<class Fn> LinearAlgebra::Matrix numerical_gradient(Fn function, LinearAlgebra::Matrix* x){
         float h = 1e-4;
-        LinearAlgebra::Matrix grad(x.size, 0, 1);
-        LinearAlgebra::Matrix tmp_x = x;
-        for(int i = 0; i < x.size[0]; i++){
-            for(int j = 0; j < x.size[1]; j++){
-                float tmp_x_val = tmp_x.array[i][j];
-                tmp_x.array[i][j] = tmp_x_val + h;
+        LinearAlgebra::Matrix grad(x->size, 0, 1);
+        LinearAlgebra::Matrix* tmp_x = x;
+        for(int i = 0; i < x->size[0]; i++){
+            for(int j = 0; j < x->size[1]; j++){
+                float tmp_x_val = tmp_x->array[i][j];
+                tmp_x->array[i][j] = tmp_x_val + h;
                 float fxh1 = function(tmp_x);
-                tmp_x.array[i][j] = tmp_x_val - h;
+                tmp_x->array[i][j] = tmp_x_val - h;
                 float fxh2 = function(tmp_x);
                 grad.array[i][j] = (fxh1 - fxh2) / (2 * h);
                 tmp_x = x;
