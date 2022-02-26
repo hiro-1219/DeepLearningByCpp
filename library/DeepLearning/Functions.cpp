@@ -27,7 +27,6 @@ namespace DeepLearning::Functions::Activation{
 
     LinearAlgebra::Vector softmax(LinearAlgebra::Vector x){
         float c = x.max()[0];
-        std::cout << c << "\n";
         LinearAlgebra::Vector exp_a = x.map([&c](float i)->float{return exp(i - c);});
         return exp_a / exp_a.sum();
     }

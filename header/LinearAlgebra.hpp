@@ -74,7 +74,9 @@ namespace LinearAlgebra{
 
     Vector arange(float range0, float range1, float n); // arange
     Vector array(std::vector<float> v);                 // array
+    Vector array_random(int n, int range0, int range1);
     Matrix array(std::vector<std::vector<float>> m);
+    Matrix array_random(std::vector<int> n, int range0, int range1);
     Vector maximum(Vector a, Vector b);
     Vector zeros(int n);
     Vector ones(int n);

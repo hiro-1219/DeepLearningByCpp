@@ -6,5 +6,7 @@ compile_functions:
 	g++ -Wall -o out functions.cpp ./library/LinearAlgebra/* ./library/Plot/* ./library/DeepLearning/* -lm
 compile_neuralnetwork:
 	g++ -Wall -o out neuralnetwork.cpp ./library/LinearAlgebra/* ./library/Plot/* ./library/DeepLearning/* -lm
+compile_simpleNet:
+	g++ -Wall -o out simpleNet.cpp ./library/LinearAlgebra/* ./library/Plot/* ./library/DeepLearning/* -lm
 run:
 	./out

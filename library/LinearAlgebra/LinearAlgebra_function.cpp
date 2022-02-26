@@ -18,8 +18,18 @@ namespace LinearAlgebra{
         return ret_vec;
     }
 
+    Vector array_random(int n, int range0, int range1){
+        Vector ret_vec(n, range0, range1);
+        return ret_vec;
+    }
+
     Matrix array(std::vector<std::vector<float>> m){
         Matrix ret_matrix(m);
+        return ret_matrix;
+    }
+
+    Matrix array_random(std::vector<int> n, int range0, int range1){
+        Matrix ret_matrix(n, range0, range1);
         return ret_matrix;
     }
 

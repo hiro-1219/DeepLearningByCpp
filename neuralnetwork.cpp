@@ -28,11 +28,11 @@ LinearAlgebra::Vector forward(std::map<std::string, LinearAlgebra::Matrix> netwo
     LinearAlgebra::Matrix X = x.vec_to_matrix(0);
 
     LinearAlgebra::Matrix A1 = X.dot(W1) + B1;
-    LinearAlgebra::Matrix Z1 = Functions::sigmoid(A1);
+    LinearAlgebra::Matrix Z1 = Functions::Activation::sigmoid(A1);
     LinearAlgebra::Matrix A2 = Z1.dot(W2) + B2;
-    LinearAlgebra::Matrix Z2 = Functions::sigmoid(A2);
+    LinearAlgebra::Matrix Z2 = Functions::Activation::sigmoid(A2);
     LinearAlgebra::Matrix A3 = Z2.dot(W3) + B3;
-    LinearAlgebra::Matrix y = Functions::identity_function(A3);
+    LinearAlgebra::Matrix y = Functions::Activation::identity_function(A3);
 
     return y.matrix_to_vec();
 }
