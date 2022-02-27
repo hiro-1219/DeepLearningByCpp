@@ -1,3 +1,4 @@
+#include<stdio.h>
 #include<iostream>
 #include<vector>
 #include<map>
@@ -33,7 +34,7 @@ public:
     float accuracy(std::vector<LinearAlgebra::Vector> x, std::vector<LinearAlgebra::Vector> t){
         std::vector<LinearAlgebra::Vector> y;
         float accuracy_cnt = 0;
-        for(int i = 0; i < x.size(); i++){
+        for(int i = 0; i < (int)x.size(); i++){
             LinearAlgebra::Matrix tmp_y = this->predict(x[i].vec_to_matrix(0));
             y.push_back(tmp_y.matrix_to_vec());
             if(y[i].max()[1] == t[i].max()[1]) accuracy_cnt += 1;
@@ -52,6 +53,17 @@ public:
 };
 
 int main(void){
-
-};
+    Utils::Dataset<LinearAlgebra::Vector, int> train_dataset = Utils::MNIST_DataLoader("train");
+    Utils::Dataset<LinearAlgebra::Vector, int> test_dataset = Utils::MNIST_DataLoader("test"); 
+    int cnt = 0;
+    std::cout << train_dataset.label[0] << "\n";
+    for(int i = 0; i < 28; i++){
+        for(int j = 0; j < 28; j++){
+            printf("%04d ", (int)train_dataset.subject[0].array[cnt]);
+            cnt++;
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n";
+}
 

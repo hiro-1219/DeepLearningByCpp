@@ -8,5 +8,7 @@ compile_neuralnetwork:
 	g++ -Wall -o out neuralnetwork.cpp ./library/LinearAlgebra/* ./library/Plot/* ./library/DeepLearning/* -lm
 compile_simpleNet:
 	g++ -Wall -o out simpleNet.cpp ./library/LinearAlgebra/* ./library/Plot/* ./library/DeepLearning/* -lm
+compile_twoLayerNet:
+	g++ -Wall -o out twoLayerNet.cpp ./library/LinearAlgebra/* ./library/Plot/* ./library/DeepLearning/* -lm
 run:
 	./out

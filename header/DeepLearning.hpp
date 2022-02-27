@@ -2,6 +2,7 @@
 #define DEEPLEARNING_HPP
 #include<iostream>
 #include<vector>
+#include<map>
 #include<random>
 #include<algorithm>
 #include "LinearAlgebra.hpp"
@@ -75,50 +76,69 @@ namespace DeepLearning::Differential{
 }
 
 namespace DeepLearning::Utils{
+    template <class T, class L> class Dataset{
+    public:
+        std::vector<T> subject;
+        std::vector<L> label;
+    };
     template <class T, class L> class Batch{
-        public:
-            std::vector<T> subject;
-            std::vector<L> label;
-            int batch_size;
-            int batch_vec_size;
-            Batch(std::vector<T> subject, std::vector<L> label, int batch_size){
-                this->batch_size = batch_size;
-                LinearAlgebra::Vector index_vec = LinearAlgebra::arange(0, subject.size(), 1);
-                std::vector<float> index = index_vec.array;
-                std::mt19937 mt;
-                std::shuffle(index.begin(), index.end(), mt);
-                for(int i = 0; i < (int)subject.size(); i++){
-                    this->subject.push_back(subject[(int)index[i]]);
-                    this->label.push_back(label[(int)index[i]]);
-                }
-                check_batch_vec_size();
+    public:
+        //std::vector<T> subject;
+        //std::vector<L> label;
+        Dataset<T, L> dataset;
+        int batch_size;
+        int batch_vec_size;
+        Batch(Dataset<T, L> dataset, int batch_size){
+            this->batch_size = batch_size;
+            LinearAlgebra::Vector index_vec = LinearAlgebra::arange(0, dataset.subject.size(), 1);
+            std::vector<float> index = index_vec.array;
+            std::mt19937 mt;
+            std::shuffle(index.begin(), index.end(), mt);
+            for(int i = 0; i < (int)dataset.subject.size(); i++){
+                this->dataset.subject.push_back(dataset.subject[(int)index[i]]);
+                this->dataset.label.push_back(dataset.label[(int)index[i]]);
             }
-            std::vector<T> at_subject(int n){
-                std::vector<T> ret_vec;
-                int in_batch_size;
-                if(this->batch_vec_size < (n + 1) * this->batch_size) in_batch_size = this->batch_vec_size - n * this->batch_size;
-                else in_batch_size = this->batch_size;
-                for(int i = n * this->batch_size; i < n * this->batch_size + in_batch_size; i++){
-                    ret_vec.push_back(this->subject[i]);
-                }
-                return ret_vec;
+            check_batch_vec_size();
+        }
+        Batch(std::vector<T> subject, std::vector<L> label, int batch_size){
+            this->batch_size = batch_size;
+            LinearAlgebra::Vector index_vec = LinearAlgebra::arange(0, subject.size(), 1);
+            std::vector<float> index = index_vec.array;
+            std::mt19937 mt;
+            std::shuffle(index.begin(), index.end(), mt);
+            for(int i = 0; i < (int)subject.size(); i++){
+                this->dataset.subject.push_back(subject[(int)index[i]]);
+                this->dataset.label.push_back(label[(int)index[i]]);
             }
-            std::vector<L> at_label(int n){
-                std::vector<L> ret_vec;
-                int in_batch_size;
-                if(this->batch_vec_size < (n + 1) * this->batch_size) in_batch_size = this->batch_vec_size - n * this->batch_size;
-                else in_batch_size = this->batch_size;
-                for(int i = n * this->batch_size; i < n * this->batch_size + in_batch_size; i++){
-                    ret_vec.push_back(this->label[i]);
-                }
-                return ret_vec;
+            check_batch_vec_size();
+        }
+        std::vector<T> at_subject(int n){
+            std::vector<T> ret_vec;
+            int in_batch_size;
+            if(this->batch_vec_size < (n + 1) * this->batch_size) in_batch_size = this->batch_vec_size - n * this->batch_size;
+            else in_batch_size = this->batch_size;
+            for(int i = n * this->batch_size; i < n * this->batch_size + in_batch_size; i++){
+                ret_vec.push_back(this->dataset.subject[i]);
             }
-        private:
-            void check_batch_vec_size(){
-                batch_vec_size = this->subject.size();
+            return ret_vec;
+        }
+        std::vector<L> at_label(int n){
+            std::vector<L> ret_vec;
+            int in_batch_size;
+            if(this->batch_vec_size < (n + 1) * this->batch_size) in_batch_size = this->batch_vec_size - n * this->batch_size;
+            else in_batch_size = this->batch_size;
+            for(int i = n * this->batch_size; i < n * this->batch_size + in_batch_size; i++){
+                ret_vec.push_back(this->dataset.label[i]);
             }
+            return ret_vec;
+        }
+    private:
+        void check_batch_vec_size(){
+            batch_vec_size = this->dataset.subject.size();
+        }
     };
     LinearAlgebra::Matrix get_matrix(std::vector<LinearAlgebra::Vector> batch);
+    Dataset<LinearAlgebra::Vector, int> MNIST_DataLoader(std::string set_kinds);
 }
 
 namespace DeepLearning::Optimizer{
