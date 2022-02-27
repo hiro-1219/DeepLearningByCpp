@@ -45,6 +45,7 @@ public:
         auto loss_W = [&x, &t, this](LinearAlgebra::Matrix* W){return this->loss(x, t);};
         std::map<std::string, LinearAlgebra::Matrix> grads;
         grads["W1"] = Differential::numerical_gradient(loss_W, &params["W1"]);
+        grads["W1"].show();
         grads["B1"] = Differential::numerical_gradient(loss_W, &params["B1"]);
         grads["W2"] = Differential::numerical_gradient(loss_W, &params["W2"]);
         grads["B2"] = Differential::numerical_gradient(loss_W, &params["B2"]);
@@ -70,7 +71,45 @@ int main(void){
 
     Utils::Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> train_dataset = Utils::onehot_encoder(tmp_train_dataset);
     Utils::Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> test_dataset = Utils::onehot_encoder(tmp_test_dataset);
-    show_mnist_dataset(train_dataset, 50);
 
+    std::vector<float> train_loss;
+
+    int iters_num = 50;
+    int train_size = train_dataset.subject.size();
+    int batch_size = 100;
+    float learning_rate = 0.01;
+
+    Utils::Batch<LinearAlgebra::Vector, LinearAlgebra::Vector> batch_train(train_dataset, batch_size);
+
+    show_mnist_dataset(batch_train.dataset, 10);
+    TwoLayerNet network(784, 50, 10);
+
+    std::random_device rnd;
+    std::mt19937 mt(rnd());
+
+    std::uniform_int_distribution<> batch_random(0, (int)(train_size / batch_size));
+    
+    for(int i = 0; i < iters_num; i++){
+        int batch_n = batch_random(mt);
+        LinearAlgebra::Matrix n_label = Utils::get_matrix(batch_train.at_label(batch_n));
+        LinearAlgebra::Matrix n_subject = Utils::get_matrix(batch_train.at_subject(batch_n));
+        
+        std::map<std::string, LinearAlgebra::Matrix> grad = network.numerical_gradient(n_subject, n_label);
+        
+        for(auto key : {"W1", "B1", "W2", "B2"}){
+            network.params[key] = network.params[key] - learning_rate * grad[key];
+        }
+
+        float loss = network.loss(n_subject, n_label);
+        train_loss.push_back(loss);
+        std::cout << "[" << i << "]" << loss << "\n";
+    }
+
+    Plot::PlotGraph plot("gnuplot -persist");
+    plot.plot_start();
+    plot.plot(LinearAlgebra::arange(0, 50, 1), LinearAlgebra::array(train_loss), {0, 50}, {0, 10}, {"iteration", "loss"}, "red", true);
+    plot.plot_end();
+
+    return 0;
 }
 

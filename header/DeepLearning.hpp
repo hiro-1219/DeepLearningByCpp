@@ -90,7 +90,8 @@ namespace DeepLearning::Utils{
             this->batch_size = batch_size;
             LinearAlgebra::Vector index_vec = LinearAlgebra::arange(0, dataset.subject.size(), 1);
             std::vector<float> index = index_vec.array;
-            std::mt19937 mt;
+            std::random_device seed_gen;
+            std::mt19937 mt(seed_gen());
             std::shuffle(index.begin(), index.end(), mt);
             for(int i = 0; i < (int)dataset.subject.size(); i++){
                 this->dataset.subject.push_back(dataset.subject[(int)index[i]]);
@@ -102,7 +103,8 @@ namespace DeepLearning::Utils{
             this->batch_size = batch_size;
             LinearAlgebra::Vector index_vec = LinearAlgebra::arange(0, subject.size(), 1);
             std::vector<float> index = index_vec.array;
-            std::mt19937 mt;
+            std::random_device seed_gen;
+            std::mt19937 mt(seed_gen());
             std::shuffle(index.begin(), index.end(), mt);
             for(int i = 0; i < (int)subject.size(); i++){
                 this->dataset.subject.push_back(subject[(int)index[i]]);
