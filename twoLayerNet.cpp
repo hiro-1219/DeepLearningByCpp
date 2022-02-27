@@ -52,18 +52,25 @@ public:
     }
 };
 
-int main(void){
-    Utils::Dataset<LinearAlgebra::Vector, int> train_dataset = Utils::MNIST_DataLoader("train");
-    Utils::Dataset<LinearAlgebra::Vector, int> test_dataset = Utils::MNIST_DataLoader("test"); 
+void show_mnist_dataset(Utils::Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> dataset, int n){
     int cnt = 0;
-    std::cout << train_dataset.label[0] << "\n";
+    dataset.label[n].show();
     for(int i = 0; i < 28; i++){
         for(int j = 0; j < 28; j++){
-            printf("%04d ", (int)train_dataset.subject[0].array[cnt]);
+            printf("%04d ", (int)dataset.subject[n].array[cnt]);
             cnt++;
         }
         std::cout << "\n";
     }
     std::cout << "\n";
+}
+int main(void){
+    Utils::Dataset<LinearAlgebra::Vector, int> tmp_train_dataset = Utils::MNIST_DataLoader("train");
+    Utils::Dataset<LinearAlgebra::Vector, int> tmp_test_dataset = Utils::MNIST_DataLoader("test");
+
+    Utils::Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> train_dataset = Utils::onehot_encoder(tmp_train_dataset);
+    Utils::Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> test_dataset = Utils::onehot_encoder(tmp_test_dataset);
+    show_mnist_dataset(train_dataset, 50);
+
 }
 

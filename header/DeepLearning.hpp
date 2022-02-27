@@ -83,8 +83,6 @@ namespace DeepLearning::Utils{
     };
     template <class T, class L> class Batch{
     public:
-        //std::vector<T> subject;
-        //std::vector<L> label;
         Dataset<T, L> dataset;
         int batch_size;
         int batch_vec_size;
@@ -139,6 +137,7 @@ namespace DeepLearning::Utils{
     };
     LinearAlgebra::Matrix get_matrix(std::vector<LinearAlgebra::Vector> batch);
     Dataset<LinearAlgebra::Vector, int> MNIST_DataLoader(std::string set_kinds);
+    Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> onehot_encoder(Dataset<LinearAlgebra::Vector, int> dataset);
 }
 
 namespace DeepLearning::Optimizer{

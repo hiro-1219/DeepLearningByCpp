@@ -62,4 +62,15 @@ namespace DeepLearning::Utils{
         }
         return ret_dataset;
     }
+
+    Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> onehot_encoder(Dataset<LinearAlgebra::Vector, int> dataset){
+        Dataset<LinearAlgebra::Vector, LinearAlgebra::Vector> ret_dataset;
+        ret_dataset.subject = dataset.subject;
+        for(int i = 0; i < (int)dataset.label.size(); i++){
+            LinearAlgebra::Vector label_vec = LinearAlgebra::zeros(10);
+            label_vec.array[dataset.label[i]] = 1;
+            ret_dataset.label.push_back(label_vec);
+        }
+        return ret_dataset;
+    }
 }
